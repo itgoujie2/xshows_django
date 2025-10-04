@@ -1,0 +1,59 @@
+#pn-loading {
+    background: rgba(0, 0, 0, 0.25);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    display: none;
+}
+#pn-loading .fa-3x {
+    text-align: center;
+    color: #f1f1f1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+#perPage {
+    width: 60px;
+    padding: 5px;
+}
+.pn-sort {cursor: pointer;}
+.error {
+    color: #dc3545;
+    font-size: 0.75rem;
+    display: block;
+    width: 100%;
+}
+
+
+label:not(.form-check-label):not(.custom-file-label) {
+    margin: .5rem !important;
+    font-weight: 500 !important;
+}
+
+.dataTables_wrapper .dataTables_info {
+    padding: 0.755em !important;
+}
+
+.brand-link{
+    text-align: center;
+}
+
+.brand-link img{
+    max-width: 200px;
+}
+
+
+.checkbox-text-zoom-size
+{
+    -ms-transform: scale(2);
+    -moz-transform: scale(2);
+    -webkit-transform: scale(2);
+    -o-transform: scale(2);
+    transform: scale(2);
+    padding: 10px;
+    font-size: 110%;
+    display: inline;
+}

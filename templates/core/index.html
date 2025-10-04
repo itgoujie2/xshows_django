@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{% if current_category %}{{ current_category.display_name }} Cams | {{ site_title }}{% else %}{{ site_title }}{% endif %}
+{% endblock %}
+
+{% block meta_description %}
+{% if current_category %}{{ current_category.description }}{% endif %}
+{% endblock %}
+
+{% block meta_keywords %}
+{% if current_category %}{{ current_category.keywords }}{% endif %}
+{% endblock %}
+
+{% block og_title %}
+{% if current_category %}{{ current_category.title }}{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="main-home">
+    {% include 'partials/menu_left.html' %}
+
+    <div class="main-content">
+        <div class="al-txt">In the meantime here are some models online waiting for you...</div>
+        <div class="grid">
+            {% for model in models %}
+                {% if forloop.counter0 != 2 %}
+                    {% include 'partials/model_card.html' %}
+                {% else %}
+                    {# Featured model with video - larger card #}
+                    <div class="grid-item grid-item--width2">
+                        <a href="{% url 'models_app:detail' model.user_name %}" class="item-model ad-model">
+                            {% if model.is_online %}
+                                <div class="img-cover">
+                                    {# Live chat iframe would go here #}
+                                    <img src='{{ model.image }}'>
+                                </div>
+                            {% else %}
+                                <div class="img-cover" style="background-image:url('{{ model.image }}')">
+                                    <img src='{{ model.image }}'>
+                                </div>
+                            {% endif %}
+
+                            <div class="txt-ad-model">
+                                <h3>{{ model.display_name }}</h3>
+                                {% if model.is_online %}
+                                <div class="live-m">Live</div>
+                                {% endif %}
+                            </div>
+                            <span class="mute"><i class="fas fa-volume-mute"></i></span>
+                        </a>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <p>No models available at the moment.</p>
+            {% endfor %}
+        </div>
+
+        {# Pagination #}
+        {% if is_paginated %}
+        <nav aria-label="Page navigation example" class="sub-page">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Next</span>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,157 @@
+
+@media all and (min-width: 320px) and (max-width: 1100px) {
+   .container {
+   	max-width: 100%;
+   }
+   .grid-sizer, .grid-item {
+		width: 50%;
+	}
+	.grid-item--width2 {
+		width: 100%;
+	}
+}
+@media all and (min-width: 320px) and (max-width: 768px) {
+	
+	.logo {
+		z-index: 9;
+		position: relative;
+	}
+	.toogle-a {
+		display: block;
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+	}
+	.header.show .toogle-a{
+		top: 15px;
+	}
+	.toogle-a span {
+		position: absolute;
+		top: 5px;
+		left: 8px;
+		width: 25px;
+		height: 2px;
+		background-color: #6d6d6d;
+		transition:all 0.3s ease-in-out;
+	}
+	.toogle-a span:nth-child(1) {
+		top: 10px;
+	}
+	.toogle-a span:nth-child(2) {
+		top: 18px;
+	}
+	.toogle-a span:nth-child(3) {
+		top: 26px;
+	}
+	.toogle-a.active span:nth-child(2) {
+		display: none;
+	}
+	.toogle-a.active span:nth-child(1) {
+		transform: rotate(-47deg);
+		top: 17px;
+	}
+	.toogle-a.active span:nth-child(3) {
+		transform: rotate(41deg);
+		top: 17px;
+	}
+	.right-header {
+		position: fixed;
+		top:0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #fff;
+		text-align: center;
+		transition:all 0.3s ease-in-out;
+	}
+	.right-header {
+		top: -100%;
+	}
+	.right-header.show {
+		top: 0;
+	}
+	.menu {
+		float: none;
+		margin: 15vh 0 0 0;
+	}
+	.right-header .btn {
+		float: none;
+	}
+	.menu li {
+		display: block;
+		margin: 3vh 0;
+	}
+	.menu li a:not(.btn) {
+		padding: 15px;
+		border-bottom: 1px solid #ddd;
+	}
+	.menu li.active a:not(.btn)::after {
+		display: none;
+	}
+	.menu li.active a:not(.btn) {
+		background-color: #333;
+		color: #E23A05 !important;
+	}
+	.main-home {
+		display: block;
+	}
+	.menu-left {
+		position: fixed;
+		top: 70px;
+		z-index: 100;
+		transition:all 0.3s ease-in-out;
+		left: -100%;
+		overflow: auto;
+		height: 100%;
+	}
+	.menu-left.show {
+		left: 0;
+	}
+	.main-content {
+		width: 100%;
+	}
+	.category-m {
+		display: block;
+		position: absolute;
+		top: 17px;
+		right: 67px;
+		padding: 5px 10px;
+		background-color: #E10000;
+		border-radius: 3px;
+		color: #fff;
+		font-weight: bold;
+	}
+	.bg-cate{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 0;
+		background-color: rgba(0,0,0,0.5);
+		z-index: 10;
+		transition:all 0.3s ease-in-out;
+	}
+	.bg-cate.show {
+		height: 100%;
+	}
+	body.hide, html.hide {
+		overflow: hidden;
+	}
+	.grid-sizer, .grid-item {
+		width: 100%;
+	}
+	.txt-ad-model h3 {
+		font-size: 15px;
+	}
+	.al-txt {
+		font-size: 18px;
+	}
+
+}
+
+@media all and (min-width: 320px) and (max-width: 500px) {
+	
+}

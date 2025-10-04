@@ -1,0 +1,36 @@
+{% load static %}
+<header class="header">
+    <div class="logo">
+        <a href="{% url 'core:home' %}">
+            <img src="{% static logo_path %}">
+        </a>
+    </div>
+    <div class="right-header">
+        <ul class="menu">
+            <li class="{% if request.resolver_match.kwargs.sex == 'trans' %}active{% endif %}">
+                <a href="{% url 'models_app:sex_page' 'trans' %}">TRANS</a>
+            </li>
+            <li class="{% if request.resolver_match.kwargs.sex == 'male' %}active{% endif %}">
+                <a href="{% url 'models_app:sex_page' 'male' %}">BOYS</a>
+            </li>
+            <li class="{% if request.resolver_match.kwargs.sex == 'female' %}active{% endif %}">
+                <a href="{% url 'models_app:sex_page' 'female' %}">GIRLS</a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="{% if request.resolver_match.url_name == 'favorites' %}active{% endif %}">
+                    <a href="{% url 'models_app:favorites' %}">FAVORITES</a>
+                </li>
+                <li class="{% if request.resolver_match.url_name == 'my_subscriptions' %}active{% endif %}">
+                    <a href="{% url 'models_app:my_subscriptions' %}">🔔 ALERTS</a>
+                </li>
+                <li><a href="#" class="btn btn-dark">Welcome, {{ user.username }}</a></li>
+                <li><a href="{% url 'users:logout' %}">LOGOUT</a></li>
+            {% else %}
+                <li><a href="{% url 'users:register' %}" class="btn btn-danger">Register</a></li>
+                <li><a href="{% url 'users:login' %}" class="btn btn-dark">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="category-m">Categories</div>
+    <div class="toogle-a"><span></span><span></span><span></span></div>
+</header>

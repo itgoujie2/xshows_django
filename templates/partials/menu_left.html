@@ -1,0 +1,9 @@
+<div class="menu-left">
+    <ul>
+        {% for category in categories %}
+        <li>
+            <a href="{% url 'core:home_category' category.name %}">{{ category.display_name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

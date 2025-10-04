@@ -1,0 +1,34 @@
+{% load static %}
+{% load subscription_tags %}
+<div class="grid-item">
+    <a href="{% url 'models_app:detail' model.user_name %}" class="item-model">
+        {% if not model.is_online and model.source == 'chaturbate' %}
+            <div class="img-cover chaturbate" style="background-image:url('{% static logo_path %}')">
+                <img src='{% static logo_path %}'>
+            </div>
+        {% else %}
+            <div class="img-cover" style="background-image:url('{{ model.image }}')">
+                <img src='{{ model.image }}'>
+            </div>
+        {% endif %}
+
+        <div class="txt-model favourite" data-url="{% url 'models_app:attach_favourite' model.id %}" data-model-id="{{ model.id %}">
+            <h3 class="status {% if model.is_online %}online{% else %}offline{% endif %}">{{ model.display_name }}</h3>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <div class="fav-model {% if model.is_favourite %}active{% endif %}">
+                    <i class="fas fa-heart"></i>
+                </div>
+                {% if user.is_authenticated %}
+                    {% is_subscribed model as subscribed %}
+                    <div class="subscribe-model {% if subscribed %}active{% endif %}"
+                         data-url="{% url 'models_app:subscribe_toggle' model.id %}"
+                         data-model-id="{{ model.id }}"
+                         title="Get alerts when {{ model.display_name }} is naked"
+                         style="cursor: pointer; color: {% if subscribed %}#ffc107{% else %}#999{% endif %}; font-size: 1.2em;">
+                        <i class="{% if subscribed %}fas{% else %}far{% endif %} fa-bell"></i>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </a>
+</div>

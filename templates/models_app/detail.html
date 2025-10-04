@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ model.display_name }} Cams | {{ site_title }}{% endblock %}
+
+{% block content %}
+<div class="content-inner">
+    <div class="row mb-50">
+        <div class="col-sm-5 col-lg-4">
+            <div class="info-model">
+                <div class="avarta-model">
+                    <div class="img-cover" style="background-image:url('{{ model.image }}')">
+                        <img src='{{ model.image }}'>
+                    </div>
+                    <span>
+                        <div title="Click to add model to favorites" class="favourite" data-url="{% url 'models_app:attach_favourite' model.id %}" data-model-id="{{ model.id }}">
+                            <div class="detail-favorites {% if model.is_favourite %}active{% endif %}">
+                                Live Sex Cam with {{ model.display_name }}
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="ac-model">
+                    <p>
+                        {% if model.age %}
+                            <span>Age</span>
+                            {{ model.age }}
+                        {% elif model.source == 'chaturbate' %}
+                            <span>Followers</span>
+                            {{ model.json_data.num_followers|default:'-' }}
+                        {% elif model.source == 'stripcash' %}
+                            <span>Favorited Count</span>
+                            {{ model.json_data.favoritedCount|default:'-' }}
+                        {% endif %}
+                    </p>
+                    <p>
+                        <span>Gender</span>
+                        {{ model.gender|title }}
+                    </p>
+                </div>
+                <div class="des-model">
+                    <p>
+                        {{ model.description }}
+                    </p>
+                    <a href="{{ model.chat_url }}" class="btn btn-danger btn-lg btn-block">Start Live Sex Show with {{ model.display_name }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7 col-lg-8">
+            <div class="item-model ad-model model-big">
+                {% if model.is_online %}
+                    <div class="img-cover">
+                        {# Live chat iframe would go here based on source #}
+                        {% if model.iframe %}
+                            {{ model.iframe|safe }}
+                        {% else %}
+                            <img src='{{ model.image }}'>
+                        {% endif %}
+                    </div>
+                {% elif model.source == 'chaturbate' %}
+                    <div class="img-cover chaturbate" style="background-image:url('{% static logo_path %}')">
+                        <img src='{% static logo_path %}'>
+                    </div>
+                {% else %}
+                    <div class="img-cover" style="background-image:url('{{ model.image }}')">
+                        <img src='{{ model.image }}'>
+                    </div>
+                {% endif %}
+                <div class="txt-ad-model">
+                    <h3>{{ model.display_name }}</h3>
+                    {% if model.is_online %}
+                        <div class="live-m">Live</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="al-txt">Do you like {{ model.display_name }}'s sexcam? You will also like...</div>
+    <div class="grid">
+        {% for related_model in related_models %}
+            {% with model=related_model %}
+                {% include 'partials/model_card.html' %}
+            {% endwith %}
+        {% empty %}
+            <p>No related models at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/player.js' %}"></script>
+<script>
+    $(".start-live").click(function () {
+        var url = $(this).data('href');
+        window.open(url, '_blank');
+    });
+</script>
+{% endblock %}

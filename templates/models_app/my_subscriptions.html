@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Subscriptions - {{ site_title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">🔔 My Nudity Alert Subscriptions</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Active Subscriptions -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="mb-0">Active Subscriptions ({{ subscriptions.count }})</h4>
+            <small class="text-muted">You'll receive email alerts when these models are live and naked</small>
+        </div>
+        <div class="card-body">
+            {% if subscriptions %}
+                <div class="row">
+                    {% for subscription in subscriptions %}
+                        <div class="col-md-6 col-lg-4 mb-3">
+                            <div class="card">
+                                <img src="{{ subscription.model.image }}"
+                                     class="card-img-top"
+                                     alt="{{ subscription.model.display_name }}"
+                                     style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        {{ subscription.model.display_name }}
+                                        {% if subscription.model.is_online %}
+                                            <span class="badge badge-success">Online</span>
+                                        {% else %}
+                                            <span class="badge badge-secondary">Offline</span>
+                                        {% endif %}
+                                    </h5>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            <strong>Source:</strong> {{ subscription.model.source|upper }}<br>
+                                            <strong>Subscribed:</strong> {{ subscription.created_at|date:"M d, Y" }}<br>
+                                            <strong>Last alert:</strong>
+                                            {% if subscription.last_notified_at %}
+                                                {{ subscription.last_notified_at|timesince }} ago
+                                            {% else %}
+                                                Never
+                                            {% endif %}
+                                        </small>
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="{{ subscription.model.chat_url }}"
+                                           target="_blank"
+                                           class="btn btn-sm btn-primary">
+                                            Watch Now
+                                        </a>
+                                        <form method="post" action="{% url 'models_app:unsubscribe' subscription.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Unsubscribe from {{ subscription.model.display_name }}?')">
+                                                Unsubscribe
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <h5>No active subscriptions</h5>
+                    <p>Browse models and click the "🔔 Subscribe" button to get nudity alerts!</p>
+                    <a href="{% url 'core:index' %}" class="btn btn-primary">Browse Models</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Notification History -->
+    <div class="card">
+        <div class="card-header">
+            <h4 class="mb-0">Notification History</h4>
+            <small class="text-muted">Recent nudity alerts sent to you</small>
+        </div>
+        <div class="card-body">
+            {% if notifications %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Model</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for notification in notifications %}
+                                <tr>
+                                    <td>{{ notification.created_at|date:"M d, Y H:i" }}</td>
+                                    <td>
+                                        <a href="{{ notification.model.chat_url }}" target="_blank">
+                                            {{ notification.model.display_name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-info">{{ notification.notification_type }}</span>
+                                    </td>
+                                    <td>
+                                        {% if notification.status == 'sent' %}
+                                            <span class="badge badge-success">✓ Sent</span>
+                                        {% elif notification.status == 'failed' %}
+                                            <span class="badge badge-danger">✗ Failed</span>
+                                        {% else %}
+                                            <span class="badge badge-warning">⏳ Pending</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted">No notifications yet. Subscribe to models to start receiving alerts!</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
