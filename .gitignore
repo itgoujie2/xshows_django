@@ -35,6 +35,8 @@ db.sqlite3-journal
 .env
 .env.local
 .env.*.local
+.env.production
+.env.t3small
 
 # IDEs
 .vscode/
@@ -50,6 +52,17 @@ Thumbs.db
 # Celery
 celerybeat-schedule
 celerybeat.pid
+
+# Supervisor (local dev only)
+supervisord.conf
+supervisor.sock
+supervisord.pid
+supervisord.log
+logs/
+
+# EC2 specific
+*.pem
+*.key
 
 # Test coverage
 htmlcov/
