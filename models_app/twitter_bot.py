@@ -70,6 +70,8 @@ class TwitterBot:
 
 Watch: {model.chat_url or 'https://chaturbate.com'}
 
+Find more models nude: nakedalerts.com
+
 #Chaturbate #LiveCam #NSFW"""
 
         # Twitter max length is 280 characters
@@ -79,6 +81,8 @@ Watch: {model.chat_url or 'https://chaturbate.com'}
 
 👥 {viewers} watching now
 Watch: {model.chat_url or 'https://chaturbate.com'}
+
+Find more: nakedalerts.com
 
 #Chaturbate #LiveCam"""
 
