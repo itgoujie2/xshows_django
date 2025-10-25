@@ -5,19 +5,41 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from sitemaps import (
+    StaticViewSitemap,
+    CategorySitemap,
+    GenderSitemap,
+    ModelDetailSitemap,
+    OnlineModelsSitemap,
+    NakedModelsSitemap,
+)
+
+# Sitemap configuration
+sitemaps = {
+    'static': StaticViewSitemap,
+    'categories': CategorySitemap,
+    'genders': GenderSitemap,
+    'models': ModelDetailSitemap,
+    'online': OnlineModelsSitemap,
+    'naked': NakedModelsSitemap,
+}
 
 urlpatterns = [
+    # Sitemap - Must be first to avoid being caught by catch-all patterns
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
     # Admin URLs
     path('admin/', admin.site.urls),
 
     # Authentication URLs (allauth)
     path('accounts/', include('allauth.urls')),
 
+    # Admin panel URLs
+    path('admin-panel/', include('admin_panel.urls')),
+
     # Custom auth URLs (compatible with Laravel routes)
     path('', include('users.urls')),
-
-    # Core app URLs
-    path('', include('core.urls')),
 
     # Models app URLs
     path('', include('models_app.urls')),
@@ -25,8 +47,8 @@ urlpatterns = [
     # Categories URLs
     path('', include('categories.urls')),
 
-    # Admin panel URLs
-    path('admin-panel/', include('admin_panel.urls')),
+    # Core app URLs - Must be last due to catch-all category pattern
+    path('', include('core.urls')),
 ]
 
 # Serve static and media files in development

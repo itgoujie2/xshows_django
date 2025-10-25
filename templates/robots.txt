@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and account pages
+Disallow: /admin/
+Disallow: /admin-panel/
+Disallow: /accounts/
+Disallow: /favorites/
+Disallow: /subscriptions/
+
+# Sitemap location
+Sitemap: {{ site_url }}/sitemap.xml

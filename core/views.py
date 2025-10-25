@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.conf import settings
+from django.http import HttpResponse
+from django.template import loader
 from models_app.models import WebcamModel
 from categories.models import Category
 
@@ -42,3 +44,14 @@ class HomeView(ListView):
                 pass
 
         return context
+
+
+def robots_txt(request):
+    """
+    Serve robots.txt file with dynamic sitemap URL
+    """
+    template = loader.get_template('robots.txt')
+    context = {
+        'site_url': settings.SITE_URL
+    }
+    return HttpResponse(template.render(context), content_type='text/plain')
