@@ -2,7 +2,7 @@
 URL configuration for xshows project.
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
@@ -26,8 +26,8 @@ sitemaps = {
 }
 
 urlpatterns = [
-    # Sitemap - Must be first to avoid being caught by catch-all patterns
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    # Sitemap - exact match, no trailing slash allowed
+    re_path(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
     # Admin URLs
     path('admin/', admin.site.urls),
