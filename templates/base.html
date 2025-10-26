@@ -14,6 +14,30 @@
     <meta name="csrf-token" content="{{ csrf_token }}">
     <title>{% block title %}{{ site_title|default:'XShows' }}{% endblock %}</title>
 
+    <!-- Schema.org structured data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "NakedAlerts",
+      "description": "Webcam model alert system that sends real-time notifications when models go live",
+      "url": "https://nakedalerts.com",
+      "applicationCategory": "UtilitiesApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Real-time webcam model alerts",
+        "AI-powered nudity detection",
+        "Email notifications",
+        "Multi-platform support"
+      ],
+      "operatingSystem": "Web Browser"
+    }
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,700;1,400;1,700&display=swap"
           rel="stylesheet">
     <!-- Bootstrap core CSS -->
