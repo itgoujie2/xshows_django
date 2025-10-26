@@ -4,11 +4,11 @@
     <a href="{% url 'models_app:detail' model.user_name %}" class="item-model">
         {% if not model.is_online and model.source == 'chaturbate' %}
             <div class="img-cover chaturbate" style="background-image:url('{% static logo_path %}')">
-                <img src='{% static logo_path %}'>
+                <img src='{% static logo_path %}' alt="{{ model.display_name }} webcam model - offline">
             </div>
         {% else %}
             <div class="img-cover" style="background-image:url('{{ model.image }}')">
-                <img src='{{ model.image }}'>
+                <img src='{{ model.image }}' alt="{{ model.display_name }} live webcam model{% if model.is_naked %} - naked alert{% endif %}{% if model.is_online %} - online now{% endif %}">
             </div>
         {% endif %}
 

@@ -10,7 +10,7 @@
             <div class="info-model">
                 <div class="avarta-model">
                     <div class="img-cover" style="background-image:url('{{ model.image }}')">
-                        <img src='{{ model.image }}'>
+                        <img src='{{ model.image }}' alt="{{ model.display_name }} webcam model profile picture">
                     </div>
                     <span>
                         <div title="Click to add model to favorites" class="favourite" data-url="{% url 'models_app:attach_favourite' model.id %}" data-model-id="{{ model.id }}">
@@ -55,16 +55,16 @@
                         {% if model.iframe %}
                             {{ model.iframe|safe }}
                         {% else %}
-                            <img src='{{ model.image }}'>
+                            <img src='{{ model.image }}' alt="{{ model.display_name }} live webcam stream">
                         {% endif %}
                     </div>
                 {% elif model.source == 'chaturbate' %}
                     <div class="img-cover chaturbate" style="background-image:url('{% static logo_path %}')">
-                        <img src='{% static logo_path %}'>
+                        <img src='{% static logo_path %}' alt="{{ model.display_name }} webcam model - offline on Chaturbate">
                     </div>
                 {% else %}
                     <div class="img-cover" style="background-image:url('{{ model.image }}')">
-                        <img src='{{ model.image }}'>
+                        <img src='{{ model.image }}' alt="{{ model.display_name }} webcam model - offline">
                     </div>
                 {% endif %}
                 <div class="txt-ad-model">

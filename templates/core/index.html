@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block title %}
-{% if current_category %}{{ current_category.display_name }} Cams | {{ site_title }}{% else %}{{ site_title }}{% endif %}
+{% if current_category %}{{ current_category.display_name }} Webcam Models - Live Alerts | NakedAlerts{% else %}Webcam Model Alerts - Never Miss a Live Show | NakedAlerts{% endif %}
 {% endblock %}
 
 {% block meta_description %}
-{% if current_category %}{{ current_category.description }}{% endif %}
+{% if current_category %}{{ current_category.description }}{% else %}Get instant alerts when webcam models go live. AI-powered notifications for your favorite creators. Free webcam stream alerts - never miss a show.{% endif %}
 {% endblock %}
 
 {% block meta_keywords %}
-{% if current_category %}{{ current_category.keywords }}{% endif %}
+{% if current_category %}{{ current_category.keywords }}{% else %}webcam model alerts, webcam alerts, cam girl notifications, live cam alerts, webcam stream notifications, adult webcam alerts{% endif %}
 {% endblock %}
 
 {% block og_title %}
@@ -24,6 +24,7 @@
     <div class="main-content">
         {# Hero Banner for Nude Alert Feature #}
         <div class="hero-banner" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 10px; margin-bottom: 30px; color: white; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <h1 style="font-size: 32px; margin-bottom: 10px; font-weight: bold;">Webcam Model Alerts - Real-Time Notifications</h1>
             <h2 style="font-size: 28px; margin-bottom: 15px; font-weight: bold;">🔥 Never Miss a Moment!</h2>
             <p style="font-size: 18px; margin-bottom: 20px; opacity: 0.95;">Get instant alerts when your favorite models go live and nude!</p>
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
@@ -60,11 +61,11 @@
                             {% if model.is_online %}
                                 <div class="img-cover">
                                     {# Live chat iframe would go here #}
-                                    <img src='{{ model.image }}'>
+                                    <img src='{{ model.image }}' alt="{{ model.display_name }} featured webcam model - live now">
                                 </div>
                             {% else %}
                                 <div class="img-cover" style="background-image:url('{{ model.image }}')">
-                                    <img src='{{ model.image }}'>
+                                    <img src='{{ model.image }}' alt="{{ model.display_name }} featured webcam model">
                                 </div>
                             {% endif %}
 

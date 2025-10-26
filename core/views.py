@@ -30,10 +30,10 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.filter(is_active=True)
-        context['site_title'] = 'XShows'
+        context['site_title'] = 'NakedAlerts'
         context['logo_path'] = settings.LOGO_PATH
-        context['meta_description'] = 'Live webcam models from multiple platforms'
-        context['meta_keywords'] = 'webcam, live chat, models'
+        context['meta_description'] = 'Get instant alerts when webcam models go live. AI-powered notifications for your favorite creators. Free webcam stream alerts - never miss a show.'
+        context['meta_keywords'] = 'webcam model alerts, webcam alerts, cam girl notifications, live cam alerts, webcam stream notifications, adult webcam alerts'
 
         # Add current category if applicable
         category_name = self.kwargs.get('category')
